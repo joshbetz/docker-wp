@@ -36,6 +36,30 @@ services:
       - WORDPRESS_LOGGED_IN_SALT=
       - WORDPRESS_NONCE_SALT=
 
+  cli:
+    image: joshbetz/wordpress:cli
+    command: bash -c 'while sleep 300; do wp cron event run --due-now; done'
+    volumes:
+      - 'wordpress:/usr/src/wordpress:ro'
+      - './wp-content:/var/www/html/wp-content:rw'
+      - './wp-config:/var/www/html/wp-config:ro'
+    networks:
+      - back
+    environment:
+      - WORDPRESS_DB_HOST=mysql:3306
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_USER=wordpress
+      - MYSQL_PASSWORD=password
+      - WORDPRESS_DB_PASSWORD=password
+      - WORDPRESS_AUTH_KEY=
+      - WORDPRESS_SECURE_AUTH_KEY=
+      - WORDPRESS_LOGGED_IN_KEY=
+      - WORDPRESS_NONCE_KEY=
+      - WORDPRESS_AUTH_SALT=
+      - WORDPRESS_SECURE_AUTH_SALT=
+      - WORDPRESS_LOGGED_IN_SALT=
+      - WORDPRESS_NONCE_SALT=
+
   memcached:
     image: memcached
     networks:
