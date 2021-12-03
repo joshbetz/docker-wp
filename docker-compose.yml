@@ -6,6 +6,7 @@ services:
       - 'wordpress:/usr/src/wordpress:ro'
       - './wp-content:/var/www/html/wp-content:ro'
       - './etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf'
+      - './etc/nginx/ssl:/etc/nginx/ssl:ro'
     networks:
       - front
     ports:
