@@ -4,7 +4,7 @@ services:
     image: nginx:mainline
     volumes:
       - 'wordpress:/usr/src/wordpress:ro'
-      - './wp-content:/var/www/html/wp-content:ro'
+      - './wp-content:/var/www/wp-content:ro'
       - './etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf'
       - './etc/nginx/ssl:/etc/nginx/ssl:ro'
     networks:
@@ -17,8 +17,8 @@ services:
     image: joshbetz/wordpress
     volumes:
       - 'wordpress:/usr/src/wordpress:ro'
-      - './wp-content:/var/www/html/wp-content:rw'
-      - './wp-config:/var/www/html/wp-config:ro'
+      - './wp-content:/var/www/wp-content:rw'
+      - './wp-config:/var/www/wp-config:ro'
     networks:
       - front
       - back
@@ -42,8 +42,8 @@ services:
     command: bash -c 'while sleep 300; do wp cron event run --due-now; done'
     volumes:
       - 'wordpress:/usr/src/wordpress:ro'
-      - './wp-content:/var/www/html/wp-content:rw'
-      - './wp-config:/var/www/html/wp-config:ro'
+      - './wp-content:/var/www/wp-content:rw'
+      - './wp-config:/var/www/wp-config:ro'
     networks:
       - back
     environment:
@@ -67,7 +67,7 @@ services:
       - back
 
   mysql:
-    image: mariadb:10.6
+    image: mariadb:10.10
     networks:
       - back
     environment:
